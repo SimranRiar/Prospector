@@ -28,6 +28,9 @@ public class Prospector : MonoBehaviour
 
     public Vector2 fsPosEnd = new Vector2(0.5f, 0.95f);
 
+    public float reloadDelay = 2f;// 2 sec delay between rounds
+
+
 
 
 
@@ -518,6 +521,18 @@ public class Prospector : MonoBehaviour
 
 
         }
+
+        // Reload the scene, resetting the game
+
+        //SceneManager.LoadScene("__Prospector_Scene_0");
+
+        Invoke("ReloadLevel", reloadDelay);                                // a
+
+
+    }
+
+    void ReloadLevel()
+    {
 
         // Reload the scene, resetting the game
 
