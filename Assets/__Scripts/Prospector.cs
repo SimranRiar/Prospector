@@ -202,7 +202,6 @@ public class Prospector : MonoBehaviour
         }
 
 
-
         CardProspector cp;
 
         // Follow the layout
@@ -264,57 +263,57 @@ public class Prospector : MonoBehaviour
         }
     }
 
-        CardProspector FindCardByLayoutID(int layoutID) {
+    CardProspector FindCardByLayoutID(int layoutID) {
 
-            foreach (CardProspector tCP in tableau)
+        foreach (CardProspector tCP in tableau)
+        {
+
+            // Search through all cards in the tableau List<>
+
+            if (tCP.layoutID == layoutID)
             {
 
-                // Search through all cards in the tableau List<>
+                // If the card has the same ID, return it
 
-                if (tCP.layoutID == layoutID)
-                {
+                return (tCP);
 
-                    // If the card has the same ID, return it
-
-                    return (tCP);
-
-                }
             }
-
-            // If it's not found, return null
-
-            return (null);
-
         }
 
-        // This turns cards in the Mine face-up or face-down
+        // If it's not found, return null
 
-        void SetTableauFaces() {
+        return (null);
 
-            foreach (CardProspector cd in tableau)
+    }
+
+    // This turns cards in the Mine face-up or face-down
+
+    void SetTableauFaces() {
+
+        foreach (CardProspector cd in tableau)
+        {
+
+            bool faceUp = true; // Assume the card will be face-up
+
+            foreach (CardProspector cover in cd.hiddenBy)
             {
 
-                bool faceUp = true; // Assume the card will be face-up
+                // If either of the covering cards are in the tableau
 
-                foreach (CardProspector cover in cd.hiddenBy)
+                if (cover.state == eCardState.tableau)
                 {
 
-                    // If either of the covering cards are in the tableau
-
-                    if (cover.state == eCardState.tableau)
-                    {
-
-                        faceUp = false; // then this card is face-down
-
-                    }
+                    faceUp = false; // then this card is face-down
 
                 }
 
-                cd.faceUp = faceUp; // Set the value on the card
-
             }
 
+            cd.faceUp = faceUp; // Set the value on the card
+
         }
+
+    }
 
     void MoveToDiscard(CardProspector cd)
     {
@@ -399,7 +398,6 @@ public class Prospector : MonoBehaviour
 
     void UpdateDrawPile()
     {
-
         CardProspector cd;
 
         // Go through all the cards of the drawPile
